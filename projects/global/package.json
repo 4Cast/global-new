@@ -1,6 +1,15 @@
 {
-  "name": "global",
+  "name": "@fourcast/global",
+  "author": "Chris Curnow",
+  "email": "chris@4cast.com.au",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:4cast/global.git"
+},
+"scripts": {
+  "build-ci": "ng build global --prod"
+},
   "peerDependencies": {
     "@angular/common": "^9.1.12",
     "@angular/core": "^9.1.12"

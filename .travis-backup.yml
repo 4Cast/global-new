@@ -1,0 +1,29 @@
+dist: trusty
+sudo: false
+language: node_js
+node_js: node
+install:
+- npm ci
+cache:
+  directories:
+  - "$HOME/.npm"
+script:
+- npm run build-ci
+before_deploy:
+- cd dist/global
+deploy:
+  provider: npm
+  email: chris@4cast.com.au
+  api_key:
+    secure: SOqV8ZUKjfQN3hvomVTAgzWzvFsKKzGRefMnd+I39TRSQz8nTap9yVWPFjDiL1/67zQ1vi28yACfvvAkF+uvhphQmDTz0SHOkxPXnAYHCSeS7mQnEU20d3zu31mTLpUF8o8YEyV4I+Nq+kDCzkPqZ9+PgacrKHT0EcfOxeI0B8M6uRI/x0mOyS7z2n5mY9OKyXYl+s7HfyS6uvlpvl8DZt4Iv5v8o0HR+54/s/rrxr9MTtSOI1i62tdTNVvRLuYi++EG0qG8DEzkNHEOuUJf3evmfq59zP/9sAMYa3t3TSed80gC2iCPmQ7LNINDhVLEVGVdjQv4mun5FDZexuybOBQxWUYXcKvYVnyGqws2VXFw3btFO4FiUsJL7gcS85kVh9aKJKET/HfTd+PTkV+O5sS/nCbqzzpiUyuYRfZII1FkCvq8EtzIs5vEwgUjh45Bri8R2xV++nJGhlSbKlyy881jslGrUNFY9WO5cvQv/xsc3z3Pclf4bsUye3sbLKLz4G/3Kg4ab+zry8VNuAEPsFyr5aOyfSj7MovO6Xbx2RqL5nzq9E/Qri2BbEJ0HLBe1ZO9jl/Nad65pkYHYZTRbKJgylwY/cI9i7qDuon0BysNfMGPf4x499EdWGB4W8SDELXZNRmWr5wCuGbIVRjj4YMOzs7icqvAkDh1cdu2r7s=
+  on:
+    tags: true
+    repo: 4Cast/global
+  skip_cleanup: 'true'
+git:
+  depth: 3
+after_success:
+- npm run travis-deploy-once "npm run semantic-release"
+branches:
+  except:
+  - "/^v\\d+\\.\\d+\\.\\d+$/"
